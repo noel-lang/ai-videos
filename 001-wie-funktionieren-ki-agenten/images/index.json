@@ -1,0 +1,46 @@
+[
+  {
+    "filename": "bg_nbpro-2026-06-04T18-27-57.jpeg",
+    "prompt": "Replace ONLY the flat green screen background behind the person with a modern, warm creative studio environment. Keep the man, his face, glasses, beard, hair, skin tone, black t-shirt and his exact pose and framing 100% identical and untouched. The new background is a stylish modern tech/creative studio with warm wood panel accents, soft warm wooden tones, subtle acoustic panels, a hint of warm ambient LED accent lighting, calm and premium OpenAI / Anthropic style office aesthetic. The background must be strongly out of focus with a soft creamy bokeh, shallow depth of field, so the person stands out sharply. Match the existing soft frontal key lighting on the subject: warm neutral color temperature, gentle even illumination, no harsh shadows. The background lighting direction, perspective and eye-level camera angle must match the original portrait exactly. Photorealistic, cinematic, clean YouTube talking-head look, high detail, natural color grading.",
+    "createdAt": "2026-06-04T18:27:57.444Z",
+    "aspectRatio": "16:9",
+    "imageSize": "4K",
+    "model": "gemini-3-pro-image-preview",
+    "inputImages": [
+      "/Users/noellang/Pictures/Camera Hub/Snapshot_2026-06-04_20-21-57.png"
+    ]
+  },
+  {
+    "filename": "bg_nb2flash-2026-06-04T18-28-36.jpeg",
+    "prompt": "Replace ONLY the flat green screen background behind the person with a modern, warm creative studio environment. Keep the man, his face, glasses, beard, hair, skin tone, black t-shirt and his exact pose and framing 100% identical and untouched. The new background is a stylish modern tech/creative studio with warm wood panel accents, soft warm wooden tones, subtle acoustic panels, a hint of warm ambient LED accent lighting, calm and premium OpenAI / Anthropic style office aesthetic. The background must be strongly out of focus with a soft creamy bokeh, shallow depth of field, so the person stands out sharply. Match the existing soft frontal key lighting on the subject: warm neutral color temperature, gentle even illumination, no harsh shadows. The background lighting direction, perspective and eye-level camera angle must match the original portrait exactly. Photorealistic, cinematic, clean YouTube talking-head look, high detail, natural color grading.",
+    "createdAt": "2026-06-04T18:28:36.427Z",
+    "aspectRatio": "16:9",
+    "imageSize": "4K",
+    "model": "gemini-3.1-flash-image-preview",
+    "inputImages": [
+      "/Users/noellang/Pictures/Camera Hub/Snapshot_2026-06-04_20-21-57.png"
+    ]
+  },
+  {
+    "filename": "bg_only-2026-06-04T18-32-12.jpeg",
+    "prompt": "Remove the person completely from the image. Keep the exact same modern warm creative studio background: wood panel wall, beige acoustic fabric panel, warm LED light strip, green plants in pots, soft chairs and out-of-focus furniture. Fill in / reconstruct the area where the person was, seamlessly extending the same studio room, same perspective, same shallow depth of field bokeh, same warm color grading and lighting. The result is an empty studio background plate with no people, photorealistic, clean YouTube background.",
+    "createdAt": "2026-06-04T18:32:12.165Z",
+    "aspectRatio": "16:9",
+    "imageSize": "4K",
+    "model": "gemini-3.1-flash-image-preview",
+    "inputImages": [
+      "./images/bg_nb2flash-2026-06-04T18-28-36.jpeg"
+    ]
+  },
+  {
+    "filename": "bg_only_bokeh-2026-06-04T18-33-36.jpeg",
+    "prompt": "Remove the person completely from the image and reconstruct the studio behind them. Keep the exact same modern warm creative studio: wood panel wall, beige acoustic fabric panel, warm LED light strip, green plants. CRITICAL: the entire image must stay strongly out of focus with a heavy, creamy, shallow depth-of-field bokeh, exactly like the original blurred background, soft and dreamy, NOT sharp. Do not add new sharp furniture or sharp objects in the foreground. Keep the same warm color grading, same perspective and same soft defocused look across the whole frame. Result: an empty, heavily blurred studio background plate with no people, photorealistic, clean YouTube background.",
+    "createdAt": "2026-06-04T18:33:36.194Z",
+    "aspectRatio": "16:9",
+    "imageSize": "4K",
+    "model": "gemini-3.1-flash-image-preview",
+    "inputImages": [
+      "./images/bg_nb2flash-2026-06-04T18-28-36.jpeg"
+    ]
+  }
+]

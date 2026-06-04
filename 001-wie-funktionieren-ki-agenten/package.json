@@ -1,0 +1,26 @@
+{
+  "name": "001-wie-funktionieren-ki-agenten",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run src/tui.ts",
+    "demo": "bun run src/index.ts",
+    "demo:live": "bun run src/index.ts --live",
+    "tui": "bun run src/tui.ts",
+    "tui:mock": "bun run src/tui.ts --mock",
+    "test": "bun test",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@opentui/core": "^0.3.2",
+    "openai": "^6.42.0",
+    "zod": "^4.4.3"
+  }
+}
