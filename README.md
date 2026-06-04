@@ -5,7 +5,7 @@ Arbeitsrepo fuer Video-Demos rund um KI-Agenten, LLM-Tools und einfache technisc
 ## Projekte
 
 - `001-wie-funktionieren-ki-agenten/`: Bun/OpenTUI-Demo fuer einen minimalen KI-Agenten mit Tool-Loop.
-- `live_demo_ai_agent/`: Phasenplan und Anforderungen fuer eine Live-Coding-Demo.
+- `live_demo_ai_agent/`: Sechs erklaerbare Code-Phasen vom Chatbot bis zum kleinen Tool-Agenten.
 - `research/`: Recherche-Notizen fuer Video-Inhalte.
 
 ## Lokal starten

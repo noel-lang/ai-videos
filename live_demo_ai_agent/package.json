@@ -1,0 +1,23 @@
+{
+  "name": "live-demo-ai-agent",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "phase:01": "bun run phases/01-chatbot-cli/src/index.ts",
+    "phase:02": "bun run phases/02-chat-loop-cli/src/index.ts",
+    "phase:03": "bun run phases/03-opentui-chat/src/index.ts",
+    "phase:04": "bun run phases/04-tools/src/index.ts",
+    "phase:05": "bun run phases/05-agent-loop/src/index.ts",
+    "phase:06": "bun run phases/06-provider-streaming/src/index.ts",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "dependencies": {
+    "@opentui/core": "^0.3.2",
+    "openai": "^6.42.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}

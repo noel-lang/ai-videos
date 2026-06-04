@@ -1,8 +1,38 @@
 # Live Demo: Wie funktionieren KI-Agenten?
 
-Dieses Projekt ist die Vorlage fuer ein 12-15 Minuten YouTube-Video. Ziel ist ein sehr einfacher, einsteigerfreundlicher Durchstich: Wir bauen von einem normalen Chatbot ausgehend Schritt fuer Schritt einen kleinen KI-Agenten.
+Dieses Projekt ist die Vorlage fuer ein 12-15 Minuten YouTube-Video. Ziel ist ein sehr einfacher, einsteigerfreundlicher Durchstich: Wir gehen von einem normalen Chatbot aus und landen Schritt fuer Schritt bei einem kleinen KI-Agenten.
 
-Die README beschreibt Anforderungen und Phasen, nicht die konkrete Implementierung. Der Code soll waehrend der Aufnahme von Codex gebaut werden.
+Die sechs Ordner unter `phases/` sind bewusst als Code-Snapshots gebaut. Man kann im Video pro Phase in einen Ordner springen und genau zeigen, was technisch neu dazugekommen ist.
+
+## Start
+
+```sh
+bun install
+bun run phase:01 "Was ist ein KI-Agent in einem Satz?"
+bun run phase:04
+bun run phase:06
+```
+
+Fuer echte Modellaufrufe braucht das Projekt eine `.env`:
+
+```sh
+cp .env.example .env
+```
+
+Beim lokalen Arbeiten wird zusaetzlich `~/DevTools/repos/plattform.env` als Fallback gelesen. Im Repo landet aber nur `.env.example`.
+
+## Die sechs Code-Phasen
+
+| Phase | Ordner | Kernidee |
+| --- | --- | --- |
+| 1 | `phases/01-chatbot-cli` | Einmal Eingabe, einmal Modellantwort |
+| 2 | `phases/02-chat-loop-cli` | Verlauf im Speicher, interaktiver Chat |
+| 3 | `phases/03-opentui-chat` | Gleicher Chat, aber als Terminal-UI |
+| 4 | `phases/04-tools` | Tools als Name, Beschreibung, Schema, Execute |
+| 5 | `phases/05-agent-loop` | Action -> Feedback -> Stop mit echten Tool Results |
+| 6 | `phases/06-provider-streaming` | Provider-Pattern, Streaming, Markdown, Response-Item-Fix |
+
+Phase 6 ist der Zielzustand fuer das Video. Die vorherigen Phasen sind nicht als perfekte Produktarchitektur gedacht, sondern als erklaerbare Zwischenstaende.
 
 ## Ziel des Videos
 
