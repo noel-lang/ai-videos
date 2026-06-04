@@ -17,7 +17,10 @@ const rl = createInterface({
 console.log("Schreib eine Nachricht. /exit beendet den Chat.\n");
 
 while (true) {
-  const text = (await rl.question("you> ")).trim();
+  const userInput = await ask("you> ");
+  if (userInput === undefined) break;
+
+  const text = userInput.trim();
   if (text === "/exit") break;
   if (!text) continue;
 
@@ -34,3 +37,14 @@ while (true) {
 }
 
 rl.close();
+
+async function ask(prompt: string): Promise<string | undefined> {
+  try {
+    return await rl.question(prompt);
+  } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "ERR_USE_AFTER_CLOSE") {
+      return undefined;
+    }
+    throw error;
+  }
+}

@@ -2,10 +2,47 @@
 
 Jetzt behalten wir Nachrichten im Speicher und koennen fortlaufend schreiben.
 
-Start:
+## Start
 
 ```sh
 bun run phase:02
 ```
 
-Erklaerpunkt: Ein Verlauf macht aus dem Programm einen Chat, aber noch keinen Agenten.
+Beenden:
+
+```txt
+/exit
+```
+
+## Unterschied zu Phase 1
+
+Phase 1 war ein einzelner Request. Phase 2 fuegt einen Loop und eine Nachrichtenliste hinzu:
+
+```ts
+const messages: Message[] = [];
+
+while (true) {
+  const text = await rl.question("you> ");
+  messages.push({ role: "user", content: text });
+  const response = await client.responses.create({ model, input: messages });
+  messages.push({ role: "assistant", content: response.output_text });
+}
+```
+
+Damit kann das Modell auf vorherige Nachrichten Bezug nehmen.
+
+## Host-Notizen
+
+Zeige im Code:
+
+- `readline/promises` ist nur die Eingabeschleife.
+- `messages` ist unser einfacher In-Memory-Kontext.
+- Jede User-Nachricht und jede Assistant-Antwort wird wieder in `messages` gelegt.
+
+Guter Satz fuer die Moderation:
+
+> Jetzt haben wir Chat. Aber Chat ist noch nicht Agentik, weil das Modell immer noch nur redet.
+
+## Erwartetes Verhalten
+
+Du kannst zwei Fragen nacheinander stellen und die zweite kann sich auf die erste beziehen. Es gibt aber noch keine Tools und keine Aktionen.
