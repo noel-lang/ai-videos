@@ -14,7 +14,7 @@ Beenden:
 /exit
 ```
 
-## Unterschied zu Phase 2
+## NEU in dieser Phase: Oberfläche
 
 Der Chat-Loop bleibt gleich. Wir ersetzen nur die rohe CLI durch eine Terminal-Oberflaeche:
 
@@ -25,6 +25,13 @@ const log = new ScrollBoxRenderable(renderer, { stickyScroll: true });
 ```
 
 Das ist wichtig fuer das Video: Eine schoene UI macht noch keinen Agenten.
+
+Additiv bedeutet hier:
+
+- Phase 1 bleibt erhalten: Modellaufruf.
+- Phase 2 bleibt erhalten: Kontext.
+- Neu dazu kommt: OpenTUI als Chat-Oberflaeche.
+- Noch nicht dabei: Tools und Agent-Loop.
 
 ## Host-Notizen
 

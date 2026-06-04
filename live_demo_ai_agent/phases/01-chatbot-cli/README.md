@@ -8,7 +8,7 @@ Einmal Eingabe, einmal Antwort. Noch kein Verlauf, keine Tools, kein Agent-Loop.
 bun run phase:01 "Was ist ein KI-Agent in einem Satz?"
 ```
 
-## Was ist neu?
+## NEU in dieser Phase
 
 Das ist der kleinste moegliche LLM-Durchstich:
 
@@ -19,7 +19,14 @@ const response = await client.responses.create({
 });
 ```
 
-Wir geben dem Modell Text und bekommen Text zurueck. Es gibt keine gespeicherte Unterhaltung und keine Verbindung zur Umwelt.
+Wir geben dem Modell Text und bekommen Text zurueck. Das ist das Fundament fuer alle spaeteren Phasen.
+
+Noch nicht dabei:
+
+- kein Kontext
+- keine TUI
+- keine Tools
+- kein Agent-Loop
 
 ## Host-Notizen
 

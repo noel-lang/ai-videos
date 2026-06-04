@@ -20,15 +20,24 @@ Kontext loeschen:
 /clear
 ```
 
-## Unterschied zu Phase 5
+## NEU in dieser Phase: Architektur, Streaming, Markdown
 
-Phase 5 war absichtlich eine Datei mit allem drin. Phase 6 trennt die Verantwortlichkeiten:
+Phase 5 hatte den Agent-Loop bereits in der TUI, aber noch als grosse Ein-Datei-Demo. Phase 6 trennt die Verantwortlichkeiten:
 
 - `types.ts`: gemeinsame Contracts fuer Provider, Tools und Messages.
 - `tools.ts`: lokale File-Tools mit Workspace-Schutz.
 - `provider.ts`: OpenAI Responses API, Streaming und Response-Item-Sanitizer.
 - `agent-session.ts`: Agent-Loop mit `maxTurns`.
 - `index.ts`: OpenTUI-Oberflaeche.
+
+Additiv bedeutet hier:
+
+- Phase 1 bleibt erhalten: Modellaufruf.
+- Phase 2 bleibt erhalten: Kontext.
+- Phase 3 bleibt erhalten: OpenTUI.
+- Phase 4 bleibt erhalten: Tools.
+- Phase 5 bleibt erhalten: Agent-Loop.
+- Neu dazu kommt: saubere Architektur, Streaming, Markdown und Response-Item-Sanitizer.
 
 ## Code-Anker fuer das Video
 

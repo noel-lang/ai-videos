@@ -18,7 +18,7 @@ const client = new OpenAI({ apiKey: requireConfig("OPENAI_API_KEY") });
 // Der Modellname bleibt konfigurierbar, damit man ihn nicht im Code ändern muss.
 const model = readConfig("OPENAI_MODEL", "gpt-5.4-mini");
 
-// Diese Liste ist unser Chat-Gedächtnis. Jede neue Anfrage bekommt den bisherigen
+// NEU in Phase 2: Kontext. Diese Liste ist unser Chat-Gedächtnis. Jede neue Anfrage bekommt den bisherigen
 // Verlauf mit, damit das Modell auf vorherige Nachrichten Bezug nehmen kann.
 const messages: Message[] = [];
 

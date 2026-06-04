@@ -14,7 +14,7 @@ Beenden:
 /exit
 ```
 
-## Unterschied zu Phase 1
+## NEU in dieser Phase: Kontext
 
 Phase 1 war ein einzelner Request. Phase 2 fuegt einen Loop und eine Nachrichtenliste hinzu:
 
@@ -30,6 +30,12 @@ while (true) {
 ```
 
 Damit kann das Modell auf vorherige Nachrichten Bezug nehmen.
+
+Additiv bedeutet hier:
+
+- Phase 1 bleibt erhalten: Modellaufruf.
+- Neu dazu kommt: Verlauf im Speicher.
+- Noch nicht dabei: TUI, Tools, Agent-Loop.
 
 ## Host-Notizen
 

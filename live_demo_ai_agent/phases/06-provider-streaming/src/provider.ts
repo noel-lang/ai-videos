@@ -20,7 +20,8 @@ export class OpenAiProvider implements ModelProvider {
     // streamedText sammelt alle Textstücke, die während des Streamings reinkommen.
     let streamedText = "";
 
-    // responses.stream startet einen Streaming-Request. Statt auf die ganze Antwort
+    // NEU in Phase 6: Streaming. responses.stream startet einen Request, bei dem
+    // Textstücke sofort ankommen. Statt auf die ganze Antwort
     // zu warten, bekommen wir Events, sobald Text entsteht.
     const stream = this.client.responses.stream({
       model: input.model,

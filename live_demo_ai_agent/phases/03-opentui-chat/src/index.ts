@@ -30,7 +30,8 @@ const messages: Message[] = [];
 // lines sind die sichtbaren Zeilen in der Terminal-UI.
 const lines: string[] = [];
 
-// Der Renderer ist die Zeichenmaschine von OpenTUI. consoleMode disabled heißt:
+// NEU in Phase 3: Eine echte Terminal-Oberfläche. Der Renderer ist die
+// Zeichenmaschine von OpenTUI. consoleMode disabled heißt:
 // normale console.log-Ausgaben stören unsere UI nicht.
 const renderer = await createCliRenderer({
   // Beim Beenden soll das Terminal wieder aufgeräumt werden.

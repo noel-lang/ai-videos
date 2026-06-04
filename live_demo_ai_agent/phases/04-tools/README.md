@@ -8,9 +8,9 @@ Hier gibt es noch keinen Agenten. Wir definieren nur Werkzeuge, die spaeter vom 
 bun run phase:04
 ```
 
-## Unterschied zu Phase 3
+## NEU in dieser Phase: Tools
 
-Wir schauen noch nicht auf UI, sondern auf die Haende des Agents. Ein Tool ist bei uns ein kleines Objekt:
+Wir behalten die OpenTUI-Oberflaeche aus Phase 3 und fuegen Werkzeuge hinzu. Ein Tool ist bei uns ein kleines Objekt:
 
 ```ts
 type Tool<TArgs> = {
@@ -23,6 +23,14 @@ type Tool<TArgs> = {
 ```
 
 Das ist didaktisch der wichtigste Shift: Das Modell schreibt keine Datei. Unsere Runtime schreibt sie.
+
+Additiv bedeutet hier:
+
+- Phase 1 bleibt erhalten: Modellaufruf.
+- Phase 2 bleibt erhalten: Kontext.
+- Phase 3 bleibt erhalten: OpenTUI.
+- Neu dazu kommt: Tool-Definitionen und manuelle Tool-Demo.
+- Noch nicht dabei: Das Modell entscheidet noch nicht selbst, welches Tool es nutzt.
 
 ## Host-Notizen
 
@@ -40,4 +48,12 @@ Guter Satz fuer die Moderation:
 
 ## Erwartetes Verhalten
 
-Das Programm ruft `write_file` und `read_file` noch manuell auf. In der Ausgabe sieht man die registrierten Tools, das Schreibresultat und den gelesenen Dateiinhalt.
+Die TUI oeffnet sich. Du kannst normal chatten oder die Tool-Demo manuell ausloesen:
+
+```txt
+/tools
+/write-demo
+/read-demo
+```
+
+Das ist noch nicht agentisch, weil der Mensch diese Tool-Befehle ausloest.

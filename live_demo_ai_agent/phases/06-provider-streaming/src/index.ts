@@ -40,7 +40,7 @@ const workspaceDir = path.join(process.cwd(), "workspace");
 // Workspace anlegen, bevor Tools ihn verwenden.
 await mkdir(workspaceDir, { recursive: true });
 
-// Die UI baut nur eine Session zusammen. Modellzugriff, Tool-Ausführung und
+// NEU in Phase 6: Architektur statt Ein-Datei-Demo. Die UI baut nur eine Session zusammen. Modellzugriff, Tool-Ausführung und
 // Loop-Logik liegen in eigenen Dateien und bleiben dadurch erklärbar.
 const session = new AgentSession({
   model,

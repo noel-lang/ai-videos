@@ -18,7 +18,7 @@ const model = readConfig("OPENAI_MODEL", "gpt-5.4-mini");
 // Aus `bun run phase:01 "Hallo"` wird hier der Prompt, den das Modell bekommt.
 const input = process.argv.slice(2).join(" ") || "Was ist ein KI-Agent in einem Satz?";
 
-// Das ist der kleinste mögliche LLM-Durchstich: ein Prompt geht rein, eine
+// NEU in Phase 1: Der erste Modellaufruf. Ein Prompt geht rein, eine
 // Antwort kommt raus. Es gibt noch keinen Chat-Verlauf und keine Werkzeuge.
 const response = await client.responses.create({
   // model sagt der API, welches Modell antworten soll.

@@ -8,9 +8,9 @@ Jetzt entscheidet das Modell zwischen finaler Antwort und Tool Call. Die Runtime
 bun run phase:05 "Erstelle agent.txt, lies die Datei danach wieder und sag kurz, was drinsteht."
 ```
 
-## Unterschied zu Phase 4
+## NEU in dieser Phase: Agentischer Loop
 
-Phase 4 hatte Tools, aber noch kein Modell, das sie anfordert. Phase 5 verbindet Modell und Tools in einem Loop:
+Phase 4 hatte Tools, aber noch kein Modell, das sie selbst anfordert. Phase 5 verbindet Modell, Tools, Kontext und TUI in einem Loop:
 
 ```ts
 for (let turn = 1; turn <= maxTurns; turn += 1) {
@@ -22,6 +22,14 @@ for (let turn = 1; turn <= maxTurns; turn += 1) {
 
 Das ist der Moment, ab dem wir sinnvoll von Agent sprechen koennen.
 
+Additiv bedeutet hier:
+
+- Phase 1 bleibt erhalten: Modellaufruf.
+- Phase 2 bleibt erhalten: Kontext.
+- Phase 3 bleibt erhalten: OpenTUI.
+- Phase 4 bleibt erhalten: Tools.
+- Neu dazu kommt: Das Modell darf selbst Tool Calls auswaehlen.
+
 ## Host-Notizen
 
 Zeige im Code:
@@ -31,6 +39,9 @@ Zeige im Code:
 - Die Runtime sucht das passende Tool und fuehrt es aus.
 - Das Ergebnis geht als `function_call_output` mit gleicher `call_id` zurueck.
 - Danach darf das Modell neu entscheiden: weiteres Tool oder finale Antwort.
+- Fertig ist der Agent, wenn das Modell keine `function_call` Items mehr liefert.
+- Falls das nicht passiert, beendet `maxTurns` den Loop kontrolliert.
+- "Selbst denken" heisst hier technisch: Das Modell bekommt Ziel plus Tool-Feedback und waehlt den naechsten Schritt.
 
 Guter Satz fuer die Moderation:
 
@@ -40,12 +51,11 @@ Guter Satz fuer die Moderation:
 
 Bei einem guten Demo-Prompt sieht man ungefaehr:
 
-```txt
-tool call> write_file {"path":"agent.txt", ...}
-tool result> Wrote agent.txt
-tool call> read_file {"path":"agent.txt"}
-tool result> ...
-agent> ...
-```
+Die TUI zeigt ungefaehr:
+
+- `status`: welcher Turn laeuft
+- `tool call`: welches Tool das Modell will
+- `tool result`: echtes Feedback aus der Umgebung
+- `agent`: finale Antwort
 
 Wenn ein Tool scheitert, sollte der Fehler wieder als Tool-Ergebnis in den Kontext gehen. Genau dadurch bekommt das Modell Ground Truth aus der Umgebung.
