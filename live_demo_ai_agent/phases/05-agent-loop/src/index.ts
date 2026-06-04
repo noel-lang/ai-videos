@@ -8,6 +8,8 @@ import { readConfig, requireConfig } from "../../shared/env";
 type Message = {
   role: "user" | "assistant" | "tool";
   content: string;
+  // Manche OpenAI Response-Items muessen wir spaeter wieder an die API zurueckgeben.
+  // item speichert diese technischen API-Objekte neben unserem einfachen Textverlauf.
   item?: Record<string, unknown>;
 };
 
@@ -77,6 +79,8 @@ await mkdir(workspaceDir, { recursive: true });
 const messages: Message[] = [{ role: "user", content: input }];
 const maxTurns = 6;
 
+// Das ist der agentische Kern: Das Modell darf pro Runde final antworten oder
+// Tools anfordern. maxTurns verhindert, dass der Loop endlos weiterlaeuft.
 for (let turn = 1; turn <= maxTurns; turn += 1) {
   const response = await client.responses.create({
     model,
@@ -89,6 +93,7 @@ for (let turn = 1; turn <= maxTurns; turn += 1) {
   const outputItems = response.output as unknown as Array<Record<string, unknown>>;
   const calls = outputItems.filter((item) => item.type === "function_call");
   if (calls.length === 0) {
+    // Kein Tool Call bedeutet: Das Modell ist fertig und liefert die finale Antwort.
     console.log(`agent> ${response.output_text}`);
     break;
   }
@@ -101,6 +106,8 @@ for (let turn = 1; turn <= maxTurns; turn += 1) {
     messages.push({
       role: "assistant",
       content: `Tool call: ${toolName}`,
+      // Wir speichern den Tool Call im Verlauf, damit der naechste Modellrequest
+      // weiss, zu welchem Aufruf das folgende Tool-Ergebnis gehoert.
       item: sanitizeResponseItem(call),
     });
 
@@ -110,6 +117,8 @@ for (let turn = 1; turn <= maxTurns; turn += 1) {
     messages.push({
       role: "tool",
       content: output,
+      // Ground Truth zurueck ans Modell: Das Ergebnis ist kein generierter Text,
+      // sondern kommt aus der echten Umgebung nach der Tool-Ausfuehrung.
       item: { type: "function_call_output", call_id: String(call.call_id), output },
     });
 
@@ -144,6 +153,8 @@ function parseJson(text: string): unknown {
 
 function sanitizeResponseItem(item: Record<string, unknown>): Record<string, unknown> {
   const clean = { ...item };
+  // Das SDK fuegt parsed_arguments fuer uns hinzu, die API akzeptiert dieses Feld
+  // aber nicht als naechsten input. Deshalb entfernen wir es vor dem Replay.
   delete clean.parsed_arguments;
   return clean;
 }

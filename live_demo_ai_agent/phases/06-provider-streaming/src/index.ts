@@ -22,6 +22,8 @@ const model = readConfig("OPENAI_MODEL", "gpt-5.4-mini");
 const workspaceDir = path.join(process.cwd(), "workspace");
 await mkdir(workspaceDir, { recursive: true });
 
+// Die UI baut nur eine Session zusammen. Modellzugriff, Tool-Ausfuehrung und
+// Loop-Logik liegen in eigenen Dateien und bleiben dadurch erklaerbar.
 const session = new AgentSession({
   model,
   provider: new OpenAiProvider(requireConfig("OPENAI_API_KEY")),
@@ -80,6 +82,8 @@ const markdown = new MarkdownRenderable(renderer, {
 logBox.content.add(markdown);
 
 const footer = new BoxRenderable(renderer, { id: "footer", height: 3, border: true, paddingX: 1 });
+// Der Input ist der Adapter vom Menschen zur AgentSession. Spaeter koennte hier
+// statt OpenTUI auch Discord stehen und dieselbe Session verwenden.
 const input = new InputRenderable(renderer, {
   id: "input",
   placeholder: "Schreib eine Nachricht und drueck Enter...",
@@ -133,6 +137,8 @@ async function handleInput(raw: string): Promise<void> {
 }
 
 function renderEvent(event: AgentEvent): void {
+  // Die AgentSession emittiert neutrale Events. Diese Funktion entscheidet nur,
+  // wie User, Tool Calls, Tool Results und Streaming-Text sichtbar werden.
   if (event.type === "user") append("you", event.text);
   if (event.type === "assistant_delta") updateStream(event.text);
   if (event.type === "assistant" && !streamingLine) append("agent", event.text);
@@ -154,6 +160,8 @@ function updateStream(text: string): void {
 }
 
 function render(): void {
+  // Markdown macht die Demo lesbarer: Rollen werden fett, Tool-Argumente bleiben
+  // als Code sichtbar, aber System- und Thinking-Nachrichten zeigen wir nicht.
   markdown.content = lines.map((line) => `**${line.role}**\n\n${line.text}`).join("\n\n---\n\n");
   renderer.requestRender();
 }

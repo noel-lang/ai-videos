@@ -4,6 +4,8 @@ import { z } from "zod";
 
 import type { Tool } from "./types";
 
+// Alle File-Tools laufen in einem lokalen Workspace. Das ist die einfache
+// Sicherheitsgrenze fuer die Demo: keine absoluten Pfade, kein Ausbrechen per "..".
 function resolveWorkspacePath(workspaceDir: string, relativePath: string): string {
   if (path.isAbsolute(relativePath)) throw new Error("Absolute paths are not allowed");
 
@@ -32,6 +34,8 @@ export const fileTools: Tool<unknown>[] = [
     name: "write_file",
     description: "Write UTF-8 text into a workspace file.",
     schema: writeFileArgs,
+    // Das JSON Schema ist die Tool-Dokumentation fuer das Modell. Je klarer es ist,
+    // desto zuverlaessiger kann das Modell das Tool mit passenden Argumenten nutzen.
     jsonSchema: {
       type: "object",
       properties: { path: { type: "string" }, content: { type: "string" } },
@@ -39,6 +43,8 @@ export const fileTools: Tool<unknown>[] = [
       additionalProperties: false,
     },
     async execute(args, context) {
+      // Erst execute veraendert die echte Umgebung. Das Modell selbst erzeugt nur
+      // den Wunsch, diese Funktion aufzurufen.
       const parsed = writeFileArgs.parse(args);
       const fullPath = resolveWorkspacePath(context.workspaceDir, parsed.path);
       await mkdir(path.dirname(fullPath), { recursive: true });

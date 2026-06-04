@@ -30,6 +30,8 @@ export class AgentSession {
     this.messages.push({ role: "user", content: text });
     emit({ type: "user", text });
 
+    // Die Session ist die Runtime des Agents: Modell fragen, Tool Calls ausfuehren,
+    // Tool Results zurueckgeben und bei finaler Antwort stoppen.
     for (let turn = 0; turn < this.options.maxTurns; turn += 1) {
       const steps = await this.options.provider.run({
         model: this.options.model,
@@ -41,6 +43,8 @@ export class AgentSession {
 
       const final = steps.find((step) => step.type === "final");
       if (final?.type === "final") {
+        // Sobald das Modell keine Aktion mehr anfordert, ist der Turn fertig.
+        // Die Antwort wird gespeichert und an die UI gemeldet.
         this.messages.push({ role: "assistant", content: final.text });
         emit({ type: "assistant", text: final.text });
         return;
@@ -59,6 +63,8 @@ export class AgentSession {
         }
 
         try {
+          // Tool-Ergebnisse sind Ground Truth: Sie kommen aus der echten Umgebung
+          // und werden danach wieder in den Modellkontext geschrieben.
           const result = await tool.execute(tool.schema.parse(step.arguments), { workspaceDir: this.options.workspaceDir });
           this.messages.push({
             role: "tool",
@@ -84,6 +90,8 @@ export class AgentSession {
     this.messages.push({
       role: "tool",
       content: error,
+      // Fehler sind ebenfalls Feedback aus der Umgebung. Das Modell kann im
+      // naechsten Loop darauf reagieren, statt dass die App nur abstuerzt.
       item: { type: "function_call_output", call_id: callId, output: error },
     });
     emit({ type: "tool_error", name, error });

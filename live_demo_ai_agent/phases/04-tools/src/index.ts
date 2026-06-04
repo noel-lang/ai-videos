@@ -12,6 +12,8 @@ type Tool<TArgs> = {
 
 const workspaceDir = path.join(process.cwd(), "workspace");
 
+// File-Tools duerfen nur in diesem Workspace arbeiten. So kann ein Modell nicht
+// versehentlich oder absichtlich ausserhalb des Demo-Ordners Dateien anfassen.
 function resolveWorkspacePath(relativePath: string): string {
   if (path.isAbsolute(relativePath)) {
     throw new Error("Absolute paths are not allowed");
@@ -32,6 +34,8 @@ const writeFileArgs = z.object({
 const writeFileTool: Tool<z.infer<typeof writeFileArgs>> = {
   name: "write_file",
   description: "Write text into a file inside the workspace.",
+  // Das JSON Schema ist der Vertrag, den das Modell sieht: welche Argumente
+  // sind erlaubt, welche sind Pflicht, und was bedeuten sie.
   jsonSchema: {
     type: "object",
     properties: {
@@ -43,6 +47,8 @@ const writeFileTool: Tool<z.infer<typeof writeFileArgs>> = {
   },
   parse: (args) => writeFileArgs.parse(args),
   async execute(args) {
+    // execute ist der eigentliche "Arm" des Agents. Erst hier passiert echte
+    // Arbeit in der Umgebung, nicht im Modell selbst.
     const fullPath = resolveWorkspacePath(args.path);
     await mkdir(path.dirname(fullPath), { recursive: true });
     await writeFile(fullPath, args.content, "utf8");
@@ -94,6 +100,7 @@ const tools = [writeFileTool, readFileTool, listFilesTool];
 await mkdir(workspaceDir, { recursive: true });
 
 // Manualer Tool-Aufruf: Das Modell kommt erst in der naechsten Phase dazu.
+// Damit kann man isoliert zeigen: Tools sind normale Funktionen mit Validierung.
 const writeResult = await writeFileTool.execute(
   writeFileTool.parse({ path: "demo.txt", content: "Tools sind Funktionen mit Schema.\n" }),
 );

@@ -17,6 +17,8 @@ const model = readConfig("OPENAI_MODEL", "gpt-5.4-mini");
 const messages: Message[] = [];
 const lines: string[] = [];
 
+// OpenTUI ist hier nur die Oberflaeche. Die fachliche Logik bleibt derselbe
+// Chatbot wie in Phase 2: Verlauf sammeln, Modell fragen, Antwort anzeigen.
 const renderer = await createCliRenderer({
   clearOnShutdown: true,
   exitOnCtrlC: true,
@@ -25,6 +27,8 @@ const renderer = await createCliRenderer({
 
 renderer.root.flexDirection = "column";
 
+// Der obere Bereich ist der Chat-Verlauf. stickyScroll sorgt dafuer, dass neue
+// Nachrichten unten sichtbar bleiben, wie man es aus Chat-Apps kennt.
 const log = new ScrollBoxRenderable(renderer, {
   id: "log",
   flexGrow: 1,
@@ -75,6 +79,8 @@ async function handleInput(raw: string): Promise<void> {
   append(`you\n${userText}`);
   messages.push({ role: "user", content: userText });
 
+  // Auch in der TUI bleibt es ein normaler Chatbot-Request: bisherige Messages rein,
+  // Antwort raus, danach rendern wir die Antwort nur schoener im Terminal.
   const response = await client.responses.create({
     model,
     input: messages,
